@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TERROR Calc</title>
+<style>
+body{background:#000; color:#00ff88; font-family:sans-serif; text-align:center; padding:40px}
+input{width:200px; padding:15px; font-size:20px; margin:10px; background:#111; color:#00ff88; border:2px solid #00ff88; border-radius:8px}
+button{padding:15px 25px; font-size:18px; margin:5px; background:#00ff88; color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer}
+h1{color:#00ff88}
+</style>
+</head>
+<body>
+<h1>TERROR CALCULATOR</h1>
+<input type="text" id="display" readonly><br>
+<button onclick="display.value+='7'">7</button>
+<button onclick="display.value+='8'">8</button>
+<button onclick="display.value+='9'">9</button>
+<button onclick="display.value+='+'">+</button><br>
+<button onclick="display.value+='4'">4</button>
+<button onclick="display.value+='5'">5</button>
+<button onclick="display.value+='6'">6</button>
+<button onclick="display.value+='-'">-</button><br>
+<button onclick="display.value+='1'">1</button>
+<button onclick="display.value+='2'">2</button>
+<button onclick="display.value+='3'">3</button>
+<button onclick="display.value+='*'">*</button><br>
+<button onclick="display.value=''">C</button>
+<button onclick="display.value+='0'">0</button>
+<button onclick="display.value=eval(display.value)">=</button>
+<button onclick="display.value+='/'">/</button>
+</body>
+</html>
