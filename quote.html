@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TERROR Quote Generator</title>
+<style>
+body{background:#000; color:#00ff88; font-family:sans-serif; text-align:center; padding:30px}
+.container{max-width:500px; margin:auto; border:2px solid #00ff88; padding:25px; border-radius:15px; background:#111}
+h1{color:#00ff88}
+select,input,button{padding:12px; margin:8px; width:90%; background:#222; color:#00ff88; border:2px solid #00ff88; border-radius:8px; font-size:16px}
+button{background:#00ff88; color:#000; font-weight:bold; cursor:pointer}
+.price{font-size:48px; color:#00ff88; font-weight:bold; margin:20px 0}
+a{color:#00ff88; display:block; margin-top:25px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>TERROR AI QUOTE</h1>
+<p>Calculate website price instantly</p>
+
+<select id="type">
+  <option value="1500">Landing Page - ₵1,500</option>
+  <option value="3500">Business Site 5 pages - ₵3,500</option>
+  <option value="8500">E-commerce 20 products - ₵8,500</option>
+  <option value="12000">E-commerce 100 products - ₵12,000</option>
+</select>
+
+<select id="features">
+  <option value="0">Basic - ₵0</option>
+  <option value="500">+ Contact Form - ₵500</option>
+  <option value="800">+ WhatsApp Chat - ₵800</option>
+  <option value="1500">+ Payment Gateway - ₵1,500</option>
+</select>
+
+<button onclick="calculate()">Generate Quote 🔥</button>
+
+<div class="price">₵<span id="total">0</span></div>
+
+<a href="index.html">← Back to TERROR EMPIRE</a>
+</div>
+
+<script>
+function calculate(){
+  let type = parseInt(document.getElementById('type').value);
+  let features = parseInt(document.getElementById('features').value);
+  let total = type + features;
+  document.getElementById('total').textContent = total.toLocaleString();
+}
+</script>
+</body>
+  </html>
