@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TERROR 1% DAILY</title>
+<style>
+body{background:#000; color:#00ff88; font-family:sans-serif; text-align:center; padding:30px}
+.container{max-width:500px; margin:auto; border:2px solid #00ff88; padding:25px; border-radius:15px; background:#111}
+h1{color:#00ff88; font-size:28px}
+.streak{font-size:40px; color:#ff8800; font-weight:bold; margin:20px 0}
+.challenge{background:#222; padding:20px; border-radius:10px; margin:20px 0; border-left:4px solid #00ff88}
+.money{background:#222; padding:20px; border-radius:10px; margin:20px 0; border-left:4px solid #ff8800}
+input,button{padding:12px; margin:8px; background:#000; color:#00ff88; border:2px solid #00ff88; border-radius:8px; font-size:16px}
+button{background:#00ff88; color:#000; font-weight:bold; cursor:pointer}
+.saved{font-size:32px; color:#ff8800; font-weight:bold}
+a{color:#00ff88; display:block; margin-top:25px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>TERROR 1% DAILY</h1>
+<p>Get 1% better every day</p>
+
+<div class="streak">Day <span id="streak">0</span></div>
+
+<div class="challenge">
+<h3>Today's Code Line:</h3>
+<p id="codeLine" style="font-size:18px; color:#ff8800"></p>
+<button onclick="completeChallenge()">I Learned This ✅</button>
+</div>
+
+<div class="money">
+<h3>Money You Saved:</h3>
+<p>Dev charge for your site: ₵<input type="number" id="devPrice" placeholder="50000"></p>
+<button onclick="updateMoney()">Calculate Savings</button>
+<p class="saved">₵<span id="saved">0</span></p>
+</div>
+
+<a href="index.html">← Back to TERROR EMPIRE</a>
+</div>
+
+<script>
+let data = JSON.parse(localStorage.getItem('terror1percent')) || {streak:0, lastDate:'', saved:0, completed:[]};
+
+const codeLines = [
+"console.log('Hello TERROR'); - Print text to console",
+"document.getElementById('id'); - Select HTML element",
+"localStorage.setItem('key', 'value'); - Save data forever",
+"array.push(item); - Add item to array",
+"if(condition){ do this } - Make decisions in code",
+"for(let i=0; i<10; i++){ } - Repeat things 10 times",
+"function name(){ } - Create reusable code block",
+"addEventListener('click', function); - React to clicks"
+];
+
+function checkStreak(){
+  let today = new Date().toDateString();
+  if(data.lastDate!== today &&!data.completed.includes(today)){
+    // New day, reset streak if missed day
+    let yesterday = new Date();
+    yesterday.setDate(yesterday.getDate()-1);
+    if(data.lastDate!== yesterday.toDateString() && data.streak > 0){
+      data.streak = 0;
+    }
+  }
+  document.getElementById('streak').textContent = data.streak;
+  showCodeLine();
+  document.getElementById('saved').textContent = data.saved;
+}
+
+function showCodeLine(){
+  let dayIndex = data.streak % codeLines.length;
+  document.getElementById('codeLine').textContent = codeLines[dayIndex];
+}
+
+function completeChallenge(){
+  let today = new Date().toDateString();
+  if(!data.completed.includes(today)){
+    data.streak++;
+    data.completed.push(today);
+    data.lastDate = today;
+    saveData();
+    checkStreak();
+    alert('TERROR! +1% unlocked! Streak: Day ' + data.streak);
+  } else {
+    alert('You already completed today bro! Come back tomorrow 🔥');
+  }
+}
+
+function updateMoney(){
+  let price = document.getElementById('devPrice').value;
+  if(price){
+    data.saved = parseInt(price);
+    saveData();
+    document.getElementById('saved').textContent = data.saved;
+  }
+}
+
+function saveData(){
+  localStorage.setItem('terror1percent', JSON.stringify(data));
+}
+
+checkStreak();
+</script>
+</body>
+</html>
