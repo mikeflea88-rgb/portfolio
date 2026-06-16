@@ -1,42 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>TERROR Todo List</title>
-<style>
-body{background:#000; color:#ff00ff; font-family:sans-serif; text-align:center; padding:40px}
-input,button{padding:12px; margin:5px; background:#111; color:#ff00ff; border:2px solid #ff00ff; border-radius:8px; font-size:16px}
-button{background:#ff00ff; color:#000; font-weight:bold; cursor:pointer}
-.delete{background:#ff0044; color:#fff; padding:5px 10px; margin-left:10px; border:none; border-radius:5px}
-#list{margin-top:30px; text-align:left; max-width:400px; margin-left:auto; margin-right:auto}
-.task{padding:12px; border-bottom:1px solid #ff00ff; margin:5px 0; display:flex; justify-content:space-between; align-items:center}
-h1{color:#ff00ff}
-a{color:#ff00ff; display:block; margin-top:30px}
-</style>
-</head>
-<body>
-<h1>TERROR TODO LIST</h1>
-<input type="text" id="task" placeholder="What you want to do?">
-<button onclick="addTask()">Add Task</button>
-
-<div id="list"></div>
-<h3>Total Tasks: <span id="count">0</span></h3>
-
-<a href="index.html">← Back to Portfolio</a>
-
 <script>
-let tasks = [];
+let tasks = JSON.parse(localStorage.getItem('terrorTasks')) || [];
+
 function addTask(){
   let task = document.getElementById('task').value;
   if(task){
     tasks.push(task);
+    saveTasks();
     updateList();
     document.getElementById('task').value = '';
   }
 }
+
 function deleteTask(index){
   tasks.splice(index, 1);
+  saveTasks();
   updateList();
 }
+
+function saveTasks(){
+  localStorage.setItem('terrorTasks', JSON.stringify(tasks));
+}
+
 function updateList(){
   let list = document.getElementById('list');
   list.innerHTML = '';
@@ -45,6 +29,7 @@ function updateList(){
   });
   document.getElementById('count').textContent = tasks.length;
 }
+
+// LOAD TASKS WHEN PAGE OPEN
+updateList();
 </script>
-</body>
-</html>
