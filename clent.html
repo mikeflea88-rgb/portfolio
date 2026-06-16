@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TERROR Client Finder</title>
+<style>
+body{background:#000; color:#ff8800; font-family:sans-serif; text-align:center; padding:30px}
+.container{max-width:600px; margin:auto; border:2px solid #ff8800; padding:25px; border-radius:15px; background:#111}
+h1{color:#ff8800}
+input,textarea,button{padding:12px; margin:8px; width:90%; background:#222; color:#ff8800; border:2px solid #ff8800; border-radius:8px; font-size:16px}
+button{background:#ff8800; color:#000; font-weight:bold; cursor:pointer}
+.client{background:#222; padding:15px; margin:10px 0; border-radius:8px; border-left:4px solid #ff8800; text-align:left}
+.delete{background:#ff0044; color:#fff; padding:5px 10px; float:right; border:none; border-radius:5px; cursor:pointer}
+a{color:#ff8800; display:block; margin-top:25px}
+.total{font-size:32px; color:#00ff88; font-weight:bold}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>TERROR CLIENT FINDER</h1>
+<p>Save people wey need website</p>
+
+<div class="total">Total Leads: <span id="count">0</span></div>
+
+<input type="text" id="name" placeholder="Client Name">
+<input type="text" id="contact" placeholder="WhatsApp/Facebook Link">
+<textarea id="note" placeholder="What they need? E.g: Restaurant website"></textarea>
+<button onclick="addClient()">Save Lead 🔥</button>
+
+<div id="list"></div>
+
+<a href="index.html">← Back to TERROR EMPIRE</a>
+</div>
+
+<script>
+let clients = JSON.parse(localStorage.getItem('terrorClients')) || [];
+
+function addClient(){
+  let name = document.getElementById('name').value;
+  let contact = document.getElementById('contact').value;
+  let note = document.getElementById('note').value;
+  if(name && contact){
+    clients.push({name, contact, note, date:new Date().toLocaleDateString()});
+    saveClients();
+    updateList();
+    document.getElementById('name').value = '';
+    document.getElementById('contact').value = '';
+    document.getElementById('note').value = '';
+  }
+}
+
+function deleteClient(index){
+  clients.splice(index, 1);
+  saveClients();
+  updateList();
+}
+
+function saveClients(){
+  localStorage.setItem('terrorClients', JSON.stringify(clients));
+}
+
+function updateList(){
+  let list = document.getElementById('list');
+  list.innerHTML = '';
+  clients.forEach((c, i) => {
+    list.innerHTML += `<div class="client"><button class="delete" onclick="deleteClient(${i})">X</button><b>${c.name}</b><br>${c.contact}<br><small>${c.note}</small><br><small style="color:#666">${c.date}</small></div>`;
+  });
+  document.getElementById('count').textContent = clients.length;
+}
+
+updateList();
+</script>
+</body>
+  </html>
